@@ -21,54 +21,17 @@
   
 <div id="mapid"></div>
   <script>
-  var mymap = L.map('mapid').setView([41.8781, -87.6298], 13);
+  var mymap = L.map('mapid').setView([38.6, -91], 13);
     L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', {
         attribution: 'Map tiles by Stamen Design, under CC BY 3.0.',
         maxZoom: 18,
         id: 'mapbox.streets'
     }).addTo(mymap);
     
-    var geojsonFeature = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Point 1",
-        "amenity": "Uptown",
-        "popupContent": "Chicago is awesome"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -87.63072967529297,
-          41.88937147316903
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Point 2",
-        "amenity": "Downtown",
-        "popupContent": "I love this city!"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -87.63399124145508,
-          41.88298161317542
-        ]
-      }
-    }
-  ]
-};
-    
-L.geoJSON(geojsonFeature, {
-    onEachFeature: onEachFeature
-}).addTo(mymap);
-    
-      
+  var marker1 = L.marker([41.873, -87.629]).addTo(mymap);
+  var marker2 = L.marker([41.812, -87.628]).addTo(mymap);
+
+
   </script>
 </body>
 </html>
