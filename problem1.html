@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+   crossorigin=""/>
+  
+<style>
+    #mapid{ height: 100% }
+</style>
+
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+   crossorigin=""></script>
+
+
+  
+</head>
+<body>
+  
+  
+<div id="mapid"></div>
+  <script>
+  var mymap = L.map('mapid').setView([38.6, -91], 13);
+    L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+        attribution: 'Map tiles by Stamen Design, under CC BY 3.0.',
+        maxZoom: 18,
+        id: 'mapbox.streets'
+    }).addTo(mymap);
+  
+  var dineIcon = L.icon ({
+      iconUrl:  'http://www.nmmst.gov.tw/dbx/Editor/Assets/icons-food.png',
+      iconSize: [25, 70], 
+  });
+
+  var marker1 = L.marker([38.6362335,-90.2256442], {icon:dineIcon}).addTo(mymap);
+  marker1.bindPopup("<b>Fountain on Locust</b><br>").openPopup();
+    
+  var marker2 = L.marker([38.6350744,-90.2247268], {icon:dineIcon}).addTo(mymap);
+  marker2.bindPopup("<b>Pappy's Smokehouse</b><br>").openPopup();
+    
+  var marker3 = L.marker([38.6289237,-90.2323793], {icon:dineIcon}).addTo(mymap);
+  marker3.bindPopup("<b>Triumph Grill</b><br>").openPopup();
+    
+  var marker4 = L.marker([38.6282455,-90.2198498], {icon:dineIcon}).addTo(mymap);
+  marker4.bindPopup("<b>Syberg's on Market</b><br>").openPopup();
+ 
+  var marker5 = L.marker([38.6378814,-90.2188873], {icon:dineIcon}).addTo(mymap);
+  marker5.bindPopup("<b>Lombardo's Trattoria</b><br>").openPopup(); 
+    
+  var popup = L.popup();
+
+  function onMapClick(e) {
+      popup
+          .setLatLng(e.latlng)
+          .setContent("You clicked the map at " + e.latlng.toString())
+          .openOn(mymap);
+  }
+
+  mymap.on('click', onMapClick);
+    
+  </script>
+</body>
+</html>
