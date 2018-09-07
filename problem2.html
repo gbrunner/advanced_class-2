@@ -37,7 +37,7 @@
         marker.bindPopup(feature.properties.Location + '<br/>' + feature.properties.OPEN_DT);
         return marker;
       }
-    });
+    }).addTo(map);
     var clusters = L.markerClusterGroup();
     clusters.addLayer(crime);
     map.addLayer(clusters);
