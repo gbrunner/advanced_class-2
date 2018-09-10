@@ -29,9 +29,9 @@
   
 map.setZoom(12);
   $.getJSON("https://raw.githubusercontent.com/gbrunner/Advanced_Python_for_GIS_and_RS/master/Week%201/sf_crime.geojson",function(data){
-    var locations = data.features.map(function(rat) {
+    var locations = data.features.map(function(crime) {
       // the heatmap plugin wants an array of each location
-      var location = rat.geometry.coordinates.reverse();
+      var location = crime.geometry.coordinates.reverse();
       location.push(0.5);
       return location; // e.g. [50.5, 30.5, 0.2], // lat, lng, intensity
     });
