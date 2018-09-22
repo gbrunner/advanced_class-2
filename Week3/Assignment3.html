@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Intro to SceneView - Create a 3D map - 4.8</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.8/"></script>
+
+ <script>
+    require([
+      "esri/WebScene",
+      "esri/views/SceneView",
+      "esri/Camera",
+      "esri/widgets/Home",
+      "dojo/domReady!"
+    ], function(WebScene, SceneView, Camera, Home) {
+    
+      /*var map = new Map({
+        basemap: "streets",
+        ground: "world-elevation"
+      });*/
+      var scene = new WebScene({
+        portalItem:{
+         id:"8046207c1c214b5587230f5e5f8efc77" 
+        }
+      });
+       
+      var camera = new Camera({
+        position: [
+          -71.060217, // lon
+          42.382655, // lat
+          2500// elevation in meters
+        ],
+        tilt:0,
+        heading: 0
+      });
+     
+            
+	var view = new SceneView({
+        container: "viewDiv",
+        map: scene,
+        camera: camera
+    });
+      
+    var homeBtn = new Home({
+       view: view
+    });
+      
+    [v1, v2, v3].forEach(function(button) {
+      button.style.display = 'flex';
+      view.ui.add(button, 'top-right');
+    });
+    
+      view.ui.add(homeBtn, "top-left");
+      
+	var camera2 = new Camera({
+	        position: {
+          x: -71.0519429,
+          y: 42.3591346,
+          z: 2500
+        },
+        tilt: 0,
+        heading: 0
+	});
+		
+	var camera3 = new Camera({
+	        position: {
+          x: -71.0589787,
+          y: 42.361437,
+          z: 2500
+        },
+        tilt: 0,
+        heading: 0
+	});
+    
+    v3.addEventListener('click', function() {
+      // reuse the default camera position already established in the homeBtn
+      view.goTo({
+		target:camera3
+      });
+    });
+    v2.addEventListener('click', function() {
+      // reuse the default camera position already established in the homeBtn
+      view.goTo({
+		target:camera2
+      });
+    });
+    
+    v1.addEventListener('click', function() {
+      // reuse the default camera position already established in the homeBtn
+      view.goTo({
+        target:camera
+      });
+    });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  <button id="v1" class="off">Boston, MA</button>
+  <button id="v2" class="off">New England Aquarium</button>
+  <button id="v3" class="off">Green Dragon Tavern</button>
+  
+</body>
+  
+</html>
