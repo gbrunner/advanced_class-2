@@ -28,7 +28,25 @@
         maxZoom: 18,
         id: 'mapbox.streets'
    }).addTo(mymap);
-     
+  
+  // load GeoJSON from an external file
+  
+  $.getJSON("https://raw.githubusercontent.com/LauraLB2006/advanced_class/master/Project1/Colleges%20in%20Greater%20STL.csv",function(data){
+    // add GeoJSON layer to the map once the file is loaded
+    L.geoJson(data).addTo(mymap);
+  });  
+  var CollegeIcon = L.icon({
+    iconUrl: 'https://i.pinimg.com/originals/01/29/38/012938b2c763c53e0e129d9306615432.jpg',
+    iconSize: [50,40]
+  }); 
+  
+  L.geoJson(data  ,{
+    pointToLayer: function(feature,latlng){
+	  return L.marker(latlng,{icon: CollegeIcon});
+    } 
+  }
+  // everything worked until I put the GeoJSON code in!
+            
   var circle = L.circle([38.6270, -90.1994], {
     color: 'green',
     fillColor: '#deebf7',
