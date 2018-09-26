@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,7 +7,7 @@
   <title>Colleges and Universities in the Greater St. Louis Area</title>
 
   <style>
-  html,
+    html,
     body,
     #viewDiv {
       padding: 0;
@@ -23,7 +24,7 @@
     require([
       "esri/Map",
       "esri/layers/CSVLayer",
-      "esri/views/MapView",
+      "esri/views/SceneView",
       "esri/layers/FeatureLayer",
       "esri/config",
       "esri/core/urlUtils",
@@ -32,31 +33,60 @@
     function(
       Map,
       CSVLayer,
-      MapView,
+      SceneView,
       FeatureLayer,
       esriConfig,
       urlUtils
-    ){
+    ) {
     
     var url = "https://raw.githubusercontent.com/LauraLB2006/advanced_class/master/Project1/Colleges%20in%20Greater%20STL.csv";
       esriConfig.request.corsEnabledServers.push(url);
-      };
-          
+              
   	var template = {
         title: "Greater St. Louis Colleges and Universities",
-        content: "{Sch_Name} is in category {Category} and located at {Address}."
+        content: "{Sch_Name} is in category {Category}.<br> It is located at {Address}."
       };
     
  	 var csvLayer = new CSVLayer({
         url: url,
         copyright: "Laura Bernett 2018",
         popupTemplate: template,
-        
+        elevationInfo: {
+          // drapes icons on the surface of the globe
+          mode: "on-the-ground"
+       }  
       });
       csvLayer.renderer = {
-       type: "simple", // autocasts as new SimpleRenderer()
-       symbol: symbol
+        type: "simple", // autocasts as new SimpleRenderer()
+        symbol: {
+          type: "point-3d", // autocasts as new PointSymbol3D()
+          symbolLayers: [{
+            type: "icon", // autocasts as new IconSymbol3DLayer()
+            material: {
+              color: [238, 69, 0, 0.75]
+            },
+            outline: {
+              width: 0.5,
+              color: "white"
+            },
+            size: "12px"
+          }]
+        }
       };
+
+      var map = new Map({
+        basemap: "gray",
+        layers: [csvLayer]
+      });
+
+      var view = new SceneView({
+        container: "viewDiv",
+        center: [-91.3, 38.2],
+        zoom: 8,
+        map: map
+      });
+
+    });
   
   //add metrolink feature layer
   	const featureLayer1 = new FeatureLayer({
