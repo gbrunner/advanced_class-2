@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Colleges and Universities in the Greater St. Louis Area</title>
+
+  <style>
+  html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    </style>
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+  	<script src="https://js.arcgis.com/4.8/"></script>
+
+    <script>
+    require([
+      "esri/Map",
+      "esri/layers/CSVLayer",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/config",
+      "esri/core/urlUtils",
+      "dojo/domReady!"
+    ], 
+    function(
+      Map,
+      CSVLayer,
+      MapView,
+      FeatureLayer,
+      esriConfig,
+      urlUtils
+    ){
+    
+    var url = "https://raw.githubusercontent.com/LauraLB2006/advanced_class/master/Project1/Colleges%20in%20Greater%20STL.csv";
+      esriConfig.request.corsEnabledServers.push(url);
+      };
+          
+  	var template = {
+        title: "Greater St. Louis Colleges and Universities",
+        content: "{Sch_Name} is in category {Category} and located at {Address}."
+      };
+    
+ 	 var csvLayer = new CSVLayer({
+        url: url,
+        copyright: "Laura Bernett 2018",
+        popupTemplate: template,
+        
+      });
+      csvLayer.renderer = {
+       type: "simple", // autocasts as new SimpleRenderer()
+       symbol: symbol
+      };
+  
+  //add metrolink feature layer
+  	const featureLayer1 = new FeatureLayer({
+          url: "https://services2.arcgis.com/yL7v93RXrxlqkeDx/arcgis/rest/services/MetroLinkLocations/FeatureServer/0"
+        });
+        map.add(featureLayer1);
+    
+  //add bike trails feature layer  
+  	const featureLayer2 = new FeatureLayer({
+          url: "https://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/GreatRiversGreenway2016/FeatureServer/0"
+        });
+        map.add(featureLayer2);
+    
+  //add STL attractions feature layer
+ 	const featureLayer3 = new FeatureLayer({
+  	      url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/STL_Attraction/FeatureServer/0"
+        });
+        map.add(featureLayer3);
+  
+  //add STL250 cakes feature layer
+   	const featureLayer4 = new FeatureLayer({
+          url: "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/stl250Locations/FeatureServer/0"
+        });
+        map.add(featureLayer4);
+   
+  //add STL neighborhoods feature layer
+    const featureLayer5 = new FeatureLayer({
+          url: "https://services.arcgis.com/Ak4vS4r1vIYUiU3q/arcgis/rest/services/StLNeighborhoods/FeatureServer/0"
+        });
+        map.add(featureLayer5);
+        
+</script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
